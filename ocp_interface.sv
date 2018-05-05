@@ -1,5 +1,19 @@
 // ocp is a open centric protocol which defines performance bus freelance interface
 // between IP cores that reduces design time, style risk and production cost of SoC.
+// import ocp_pkg::*;
+package ocp_pkg;
+  
+  parameter int IDLE = 3'b000; //(none) 
+  parameter int WR   = 3'b001; // write 
+  parameter int RD   = 3'b010; // read 
+  parameter int RDEX = 3'b011; // read 
+  parameter int RDL  = 3'b100; // read 
+  parameter int WRNP = 3'b101; // write 
+  parameter int WRC  = 3'b110; // write 
+  parameter int BCST = 3'b111; // write
+  
+endpackage
+
 interface ocp_if #(
   parameter int TAGI_WIDTH = 5,
   parameter int INFO_WIDTH = 4,
