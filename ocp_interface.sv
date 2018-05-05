@@ -28,4 +28,48 @@ interface ocp_if #(
   logic                    s_resp_last;
   logic [TAGI_WIDTH-1:0]   s_tagid;
   
+  modport master (
+    output m_addr,
+    output m_burst_length,
+    output m_burst_seq, // INCR = 3'b000
+    output m_byteen,
+    output m_cmd,
+    output m_data,
+    output m_data_byteen,
+    output m_data_last,
+    output m_data_tagid,
+    output m_data_valid,
+    output m_req_info,
+    output m_resp_accept,
+    output m_tagid,
+    input  s_cmd_accept,
+    input  s_data,
+    input  s_data_accept,
+    input  s_resp, // DVA = 2'b01
+    input  s_resp_last,
+    input  s_tagid
+  );
+  
+  modport slave (
+    input  m_addr,
+    input  m_burst_length,
+    input  m_burst_seq, // INCR = 3'b000
+    input  m_byteen,
+    input  m_cmd,
+    input  m_data,
+    input  m_data_byteen,
+    input  m_data_last,
+    input  m_data_tagid,
+    input  m_data_valid,
+    input  m_req_info,
+    input  m_resp_accept,
+    input  m_tagid,
+    output s_cmd_accept,
+    output s_data,
+    output s_data_accept,
+    output s_resp, // DVA = 2'b01
+    output s_resp_last,
+    output s_tagid
+  );
+  
 endinterface
