@@ -76,4 +76,29 @@ module m_ocp_slave_bridge #(
     end
   end
   
+  always_ff @(posedge clk) begin
+    if (reset) begin
+      state <= IDLE;
+    end else if (enable) begin
+      case(state)
+        IDLE : begin
+          if (mem_access_request) begin
+            state <= mem_access_type ? WR_ACTIVE : RD_ACTIVE;
+          end
+        end
+        WR_ACTIVE : begin
+          IF (m_ocp.s_resp != 2'b00 && m_ocp.m_resp_accept) begin
+            state <= IDLE;
+          end
+        end
+        RD_ACTIVE : begin
+          if (m_ocp.s_resp != 2'b00 && m_ocp.m_resp_accept) begin
+            state <= IDLE;
+          end
+        end
+        default : state <= IDLE;
+      endcase
+    end
+  end
+  
 endmodule
