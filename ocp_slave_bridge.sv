@@ -58,12 +58,12 @@ module m_ocp_slave_bridge #(
   
   always_ff @(posedge clk) begin
     if (reset) begin
-      mem_access_done <= 1'b0;
+      mem_access_complete <= 1'b0;
     end else if (enable) begin
       if (m_ocp.s_resp != 2'b00 && m_ocp.m_resp_accept) begin
-        mem_access_done <= 1'b1;
+        mem_access_complete <= 1'b1;
       end else begin
-        mem_access_done <= 1'b0;
+        mem_access_complete <= 1'b0;
       end
     end
   end
