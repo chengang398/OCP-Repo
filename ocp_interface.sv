@@ -3,6 +3,35 @@
 // import ocp_pkg::*;
 package ocp_pkg;
   
+  typedef enum logic[2:0] {
+    IDLE = 3'b000, // idle / nop (none) 
+    WR   = 3'b001, // write 
+    RD   = 3'b010, // read 
+    RDEX = 3'b011, // read ex
+    RDL  = 3'b100, // read linked
+    WRNP = 3'b101, // write non post
+    WRC  = 3'b110, // write conditional
+    BCST = 3'b111  // write broadcast
+  }cmd_type;
+  
+  typedef enum logic[1:0] {
+    NULL = 2'b00, // No response NULL 
+    DVA  = 2'b01, // Data valid / accept DVA 
+    FAIL = 2'b10, // Request failed FAIL 
+    ERR  = 2'b11  // Response error ERR
+  }resp_type;
+  
+  typedef enum logic[2:0] {
+    INCR  = 3'b000, // Incrementing INCR
+    DFLT1 = 3'b001, // Custom (packed) DFLT1
+    WRAP  = 3'b010, // Wrapping WRAP
+    DFLT2 = 3'b011, // Custom (not packed) DFLT2
+    XOR   = 3'b100, // Exclusive OR XOR
+    STRM  = 3'b101, // Streaming STRM
+    UNKN  = 3'b110, // Unknown UNKN
+    BLCK  = 3'b111  // 2-dimensional Block BLCK
+  }burst_type;
+  
   parameter int M_CMD_IDLE = 3'b000; // idle / nop (none) 
   parameter int M_CMD_WR   = 3'b001; // write 
   parameter int M_CMD_RD   = 3'b010; // read 
